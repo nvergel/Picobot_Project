@@ -1,0 +1,6 @@
+Team members:
+	- Ignacio Lista Rosales
+	- Shaurya Pednekar
+	- Nicolás Pérez-Vergel
+
+Project: Picobot. Our ultimate goal is to make Python create programs that cover the whole Picobot world
