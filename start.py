@@ -53,6 +53,9 @@ class Program:
                     movedir = random.choice(POSSIBLE_MOVES)
                 newstate = random.choice(range(NUMSTATES))
                 self.rules[(x, y)] = (movedir, newstate)
+
+	def getMove(self, state, surroundings):
+		return self.rules[(state, surroundings)]
     
 
 # World class:
