@@ -61,8 +61,18 @@ class Program:
 		state = random.choice(list(self.rules.keys()))
 		newdir = random.choice(POSSIBLE_MOVES)
 		while newdir in state[1]:
-			newdir = random.choice(range(NUMSTATES))
+			newdir = random.choice(POSSIBLE_MOVES)
 		self.rules[state] = (newdir, random.choice(range(NUMSTATES)))
+
+	def crossover(self, other):
+		new = Program()
+		num = random.choice(range(NUMSTATES-1))
+		p1 = {x: self.rules[x] for x in self.rules if x[0] <= num}
+		p2 = {x: other.rules[x] for x in other.rules if x[0] > num}	
+		for x in p2:
+			p1[x] = p2[x]
+		new.rules = p1
+		return new
 
 	
 
