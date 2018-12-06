@@ -56,6 +56,14 @@ class Program:
 
 	def getMove(self, state, surroundings):
 		return self.rules[(state, surroundings)]
+
+	def mutate(self):
+		state = random.choice(self.rules.keys())
+		newdir = random.choice(POSSIBLE_MOVES)
+        while newdir in state[1]:
+            newdir = random.choice(range(NUMSTATES))
+		self.rules[state] = (newdir, random.choice(range(NUMSTATES)))
+
     
 
 # World class:
