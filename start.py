@@ -147,3 +147,13 @@ class World:
         surr = self.getCurrentSurroundings()
 		nextMove = self.prog.getMove(self.state, surr)
 		self.state = nextMove[1]
+		self.room[self.prow][self.pcol] = " "
+		if nextMove == 'N':
+			self.pcol -= 1
+		if nextMove == 'S':
+			self.pcol += 1
+		if nextMove == 'W':
+			self.prow -= 1
+		if nextMove == 'E':
+			self.prow += 1
+		self.room[self.prow][self.pcol] = "P"
