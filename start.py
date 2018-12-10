@@ -145,3 +145,5 @@ class World:
         """
         """
         surr = self.getCurrentSurroundings()
+		nextMove = self.prog.getMove(self.state, surr)
+		self.state = nextMove[1]
