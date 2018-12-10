@@ -10,6 +10,7 @@ import random
 
 # Magic numbers:
 
+TEST = 5
 HEIGHT = 25
 WIDTH = 25
 NUMSTATES = 5
