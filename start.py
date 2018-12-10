@@ -107,7 +107,7 @@ class World:
         self.room[HEIGHT-1][0] = "+"
         self.room[HEIGHT-1][WIDTH-1] = "+"
 
-        self.room[initial_row][initial_col] = "P"
+        self.room[self.prow][self.pcol] = "P"
     
     def __repr__(self):
         """This method returns a string representation of the Picobot world
