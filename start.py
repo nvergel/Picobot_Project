@@ -108,6 +108,7 @@ class World:
 		self.room[HEIGHT-1][WIDTH-1] = "+"
 
 		self.room[self.prow][self.pcol] = "P"
+		self.counter = 0
 	
 	def __repr__(self):
 		"""This method returns a string representation of the Picobot world
@@ -156,6 +157,8 @@ class World:
 			self.prow -= 1
 		if nextMove[0] == 'S':
 			self.prow += 1
+		if self.room[self.prow][self.pcol] == " ":
+			self.counter += 1
 		self.room[self.prow][self.pcol] = "P"
 
 	def run(self, steps):
