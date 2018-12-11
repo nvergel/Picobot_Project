@@ -108,7 +108,7 @@ class World:
 		self.room[HEIGHT-1][WIDTH-1] = "+"
 
 		self.room[self.prow][self.pcol] = "P"
-		self.counter = 0
+		self.counter = 1
 	
 	def __repr__(self):
 		"""This method returns a string representation of the Picobot world
@@ -164,3 +164,6 @@ class World:
 	def run(self, steps):
 		for i in range(steps):
 			self.step()
+
+	def fractionVisitedCells(self):
+		return self.counter/(HEIGHT-2)/(WIDTH-2)
