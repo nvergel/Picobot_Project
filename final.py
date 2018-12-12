@@ -101,8 +101,6 @@ class World:
     def __init__(self, initial_row, initial_col, program):
         """Constructs objects of type World
         """
-        program.randomize()
-
         self.prow = initial_row
         self.pcol = initial_col
         self.state = 0
@@ -216,5 +214,7 @@ def evaluateFitness(program, trials, steps):
 def GA(popsize, numgens):
     """
     """
-
-    
+    L = createPrograms(popsize)
+    L = [(evaluateFitness(x, 50, 1000), x) for x in L]
+    L = sorted(L)
+    L = L[int(-0.1*popsize):]
