@@ -7,6 +7,7 @@
 
 
 import random
+from functools import reduce
 
 # Magic numbers and other useful variables:
 
@@ -15,6 +16,8 @@ WIDTH = 25
 NUMSTATES = 5
 PATTERN = ["xxxx", "Nxxx", "NExx", "NxWx", "xxxS", "xExS", "xxWS", "xExx", "xxWx"]
 POSSIBLE_MOVES = ["N", "S", "E", "W"]
+GA_TRIALS = 50
+GA_STEPS = 1000
  
 
 # Program class:
@@ -63,11 +66,12 @@ class Program:
         """This method chooses a single rule from self.rules and changes its value (the move and new state). This choice is random
            from within one of the valid moves.
         """
-        state = random.choice(self.rules.keys())
+        state = random.choice(list(self.rules.keys()))
         newdir = random.choice(POSSIBLE_MOVES)
         while newdir in state[1]:
             newdir = random.choice(POSSIBLE_MOVES)
         self.rules[state] = (newdir, random.choice(range(NUMSTATES)))
+        return self
         
     def crossover(self, other):
         """This method accepts an object other of type Program and returns a new "offspring" of type Program containing some of the rules
@@ -211,10 +215,45 @@ def evaluateFitness(program, trials, steps):
         L += [w.fractionVisitedCells()]
     return sum(L)/len(L)
 
+def saveToFile(filename, p):
+   """Saves the data from Program p
+           to a file named filename."""
+   f = open(filename, "w")
+   print(p, file = f)
+   f.close()
+
 def GA(popsize, numgens):
     """
     """
+    print("Fitness is measured using", GA_TRIALS, "random trials and running for", GA_STEPS, "steps per trial:" )
+    print()
     L = createPrograms(popsize)
-    L = [(evaluateFitness(x, 50, 1000), x) for x in L]
-    L = sorted(L)
-    L = L[int(-0.1*popsize):]
+    for i in range(numgens):
+        print("Generation", i)
+        L = [(evaluateFitness(x, GA_TRIALS, GA_STEPS), x) for x in L]
+        L = sorted(L)
+        saveToFile("gen" + str(i) + ".txt", L[-1][1])
+        print("  Average fitness: ", (reduce(lambda x,y: x+y, [x[0] for x in L]))/popsize)
+        print("  Best fitness: ", L[-1][0])
+        print()
+        L = L[int(-0.1*popsize):]
+        newL = [x[1] for x in L]
+        counter = 1
+        while len(newL) < popsize:
+            p1 = random.choice(newL[:int(0.1*popsize)])
+            p2 = random.choice(newL[:int(0.1*popsize)])
+            if p1 == p2:
+                newL += [p1.mutate()]
+                counter = 1
+            elif counter == int(popsize*0.05):
+                newL += [p1.mutate()]
+                counter = 1
+            else:
+                newL += [p1.crossover(p2)]
+                counter += 1
+        L = newL
+    print()
+    print("Best Picobot program:")
+    f = open("gen" + str(i) + ".txt", "r")
+    print(f.read())
+    f.close()
