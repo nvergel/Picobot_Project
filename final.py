@@ -248,20 +248,20 @@ def GA(popsize, numgens):
         print("  Average fitness: ", (reduce(lambda x,y: x+y, [x[0] for x in L]))/popsize)
         print("  Best fitness: ", L[-1][0])
         print()
-        L = L[int(-BEST_PER*popsize):]
+        L = L[int(-BEST_PER*popsize):]   # Select the top BEST_PER%
         newL = [x[1] for x in L]
         counter = 1
         while len(newL) < popsize:
-            p1 = random.choice(newL[:int(BEST_PER*popsize)])   #+1
+            p1 = random.choice(newL[:int(BEST_PER*popsize)])   # This line and the next select parents to crossover
             p2 = random.choice(newL[:int(BEST_PER*popsize)])
             if p1 == p2:
-                newL += [p1.mutate()]
+                newL += [p1.mutate()]    # Mutation happening because parents are the same
                 counter = 1
             elif counter == int(popsize*MUT_PER):
-                newL += [p1.mutate()]
-                counter = 1
+                newL += [p1.mutate()]    # Mutation happening because the number of children created has reached
+                counter = 1              # MUT_PER% of the initial popsize
             else:
-                newL += [p1.crossover(p2)]
+                newL += [p1.crossover(p2)]    # Crossover
                 counter += 1
         L = newL
     print()
