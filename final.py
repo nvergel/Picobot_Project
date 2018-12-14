@@ -196,7 +196,7 @@ class World:
         return self.counter/(HEIGHT-2)/(WIDTH-2)
 
 
-# Other functions
+# Other functions:
 
 def createPrograms(size):
     """createPrograms accepts an integer representing a population size and returns a population of that many
@@ -229,6 +229,9 @@ def saveToFile(filename, p):
    f = open(filename, "w")
    print(p, file = f)
    f.close()
+
+
+# Main function:  
 
 def GA(popsize, numgens):
     """GA takes in a population size and a number of generations. It evaluates the fitness of each of the programs in

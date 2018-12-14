@@ -1,8 +1,8 @@
 How We Created/Tested the Code:
 
-- To start our hunt for the most-fit Picobot program we began using the 	  recommended parameters: population size of 200 and selection of the best 10% (the parents of the next generation).
-- At first we thought of dividing the parents into two groups of equal size 	  and using crossover within each group and between the two groups. However, we quickly discarded this idea because it was producing an excess of Picobot programs (bigger than the original population) and the math to get rid of exactly the appropriate amount was too complicated.
-- Our next idea was to create a while loop that would create a child program 	  by using crossover on two randomly selected parent programs until the original population size was reached. This idea, with a few alterations, would be our final choice.
+- To start our hunt for the most-fit Picobot program we began using the recommended parameters: population size of 200 and selection of the best 10% (the parents of the next generation).
+- At first we thought of dividing the parents into two groups of equal size and using crossover within each group and between the two groups. However, we quickly discarded this idea because it was producing an excess of Picobot programs (bigger than the original population) and the math to get rid of exactly the appropriate amount was too complicated.
+- Our next idea was to create a while loop that would create a child program by using crossover on two randomly selected parent programs until the original population size was reached. This idea, with a few alterations, would be our final choice.
 - To factor in the mutations we added a counter to the while loop so that every time the number of children created was equal to 10% of the original population size a mutation would happen. This would generate 9 mutations since the children account for 90% of every new generation.
 - After some tests we realize that, although this strategy was good, it could be improved by increasing the number of mutations. Therefore, we changed the code so that every time the number of children created was equal to 5% of the original population size a mutation would happen. This generated 18 mutations.
 - Additionally, and just because, we added an if statement so that if both randomly chosen parents were the same a mutation would take place.
