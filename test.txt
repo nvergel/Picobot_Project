@@ -1,3 +1,0 @@
-p = Program()
-p.randomize()
-w = World(5,5,p)
