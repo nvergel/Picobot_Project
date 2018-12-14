@@ -1,0 +1,63 @@
+How Did We Test the Code:
+
+	- To start our hunt for the most-fit Picobot program we began using the recommended parameters: population size of 200 and selection of the best 10% (the parents of the next generation).
+	- At first we thought of dividing the parents into two groups of equal size and using crossover within each group and between the two groups. However, we quickly discarded this idea because it was producing an excess of Picobot programs (bigger than the original population) and the math to get rid of exactly the appropriate amount was too complicated.
+	- Our next idea was to create a while loop that would create a child program by using crossover on two randomly selected parent programs until the original population size was reached. This idea, with a few alterations, would be our final choice.
+	- To factor in the mutations we added a counter to the while loop so that every time the number of children created was equal to 10% of the original population size a mutation would happen. This would generate 9 mutations since the children account for 90% of every new generation.
+	- After some tests we realize that, although this strategy was good, it could be improved by increasing the number of mutations. Therefore, we changed the code so that every time the number of children created was equal to 5% of the original population size a mutation would happen. This generated 18 mutations.
+	- We tested all this with population sizes of 200 and 400 and got optimal results for both cases (fitness of >96%).
+
+
+Weird Question:
+
+I don't understand
+
+
+Most-fit Program: 
+
+The fitness of this program was 0.984385633270321:
+0 NExx -> S 1
+0 NxWx -> E 2
+0 Nxxx -> S 3
+0 xExS -> W 3
+0 xExx -> W 4
+0 xxWS -> E 3
+0 xxWx -> S 0
+0 xxxS -> E 4
+0 xxxx -> E 1
+1 NExx -> W 3
+1 NxWx -> S 0
+1 Nxxx -> W 2
+1 xExS -> W 4
+1 xExx -> S 1
+1 xxWS -> N 2
+1 xxWx -> N 2
+1 xxxS -> E 2
+1 xxxx -> E 0
+2 NExx -> S 1
+2 NxWx -> S 4
+2 Nxxx -> W 1
+2 xExS -> W 1
+2 xExx -> W 0
+2 xxWS -> E 4
+2 xxWx -> E 1
+2 xxxS -> N 3
+2 xxxx -> W 2
+3 NExx -> W 1
+3 NxWx -> E 4
+3 Nxxx -> S 3
+3 xExS -> N 3
+3 xExx -> W 2
+3 xxWS -> E 1
+3 xxWx -> S 0
+3 xxxS -> N 2
+3 xxxx -> N 4
+4 NExx -> W 3
+4 NxWx -> E 4
+4 Nxxx -> S 1
+4 xExS -> N 0
+4 xExx -> S 2
+4 xxWS -> N 4
+4 xxWx -> E 4
+4 xxxS -> W 4
+4 xxxx -> N 2

@@ -18,6 +18,8 @@ PATTERN = ["xxxx", "Nxxx", "NExx", "NxWx", "xxxS", "xExS", "xxWS", "xExx", "xxWx
 POSSIBLE_MOVES = ["N", "S", "E", "W"]
 GA_TRIALS = 50
 GA_STEPS = 1000
+BEST_PER = 0.1
+MUT_PER = 0.05
  
 
 # Program class:
@@ -131,7 +133,7 @@ class World:
         """
         s = ""
         for row in range(HEIGHT):
-            for col in range(0, WIDTH):
+            for col in range(WIDTH):
                 s += self.room[row][col]
             s += "\n"
         return s
@@ -196,7 +198,8 @@ class World:
 # Other functions
 
 def createPrograms(size):
-    """
+    """createPrograms accepts an integer representing a population size and returns a population of that many
+       Picobot programs
     """
     L = []
     for i in range(size):
@@ -206,7 +209,11 @@ def createPrograms(size):
     return L
 
 def evaluateFitness(program, trials, steps):
-    """
+    """evaluateFitness measures the fitness of a given Picobot programs. Its arguments are a Picobot program, a positive 
+       integer trials that indicates the number of random starting points that are to be tested, and a positive integer
+       steps that indicates how many steps of the simulation each trial should be allowed to take. The function returns a 
+       fitness (floating point between 0.0 and 1.0) that is the fraction of the cells visited by this Picobot program,
+       averaged over the given number of trials.
     """
     L = []
     for i in range(trials):
@@ -216,14 +223,18 @@ def evaluateFitness(program, trials, steps):
     return sum(L)/len(L)
 
 def saveToFile(filename, p):
-   """Saves the data from Program p
-           to a file named filename."""
+   """Saves the data from Program p to a file named filename
+   """
    f = open(filename, "w")
    print(p, file = f)
    f.close()
 
 def GA(popsize, numgens):
-    """
+    """GA takes in a population size and a number of generations. It evaluates the fitness of each of the programs in
+       the population and extracts the top BEST_PER%. Then it uses crossover to breed them randomly as well as mutate to
+       to add random mutations until it reaches the original population size. Lastly, GA returns the best program from the last generation.
+
+       GA also saves the best program from each generation into a separate text file
     """
     print("Fitness is measured using", GA_TRIALS, "random trials and running for", GA_STEPS, "steps per trial:" )
     print()
@@ -236,16 +247,16 @@ def GA(popsize, numgens):
         print("  Average fitness: ", (reduce(lambda x,y: x+y, [x[0] for x in L]))/popsize)
         print("  Best fitness: ", L[-1][0])
         print()
-        L = L[int(-0.1*popsize):]
+        L = L[int(-BEST_PER*popsize):]
         newL = [x[1] for x in L]
         counter = 1
         while len(newL) < popsize:
-            p1 = random.choice(newL[:int(0.1*popsize)])
-            p2 = random.choice(newL[:int(0.1*popsize)])
+            p1 = random.choice(newL[:int(BEST_PER*popsize)])   #+1
+            p2 = random.choice(newL[:int(BEST_PER*popsize)])
             if p1 == p2:
                 newL += [p1.mutate()]
                 counter = 1
-            elif counter == int(popsize*0.05):
+            elif counter == int(popsize*MUT_PER):
                 newL += [p1.mutate()]
                 counter = 1
             else:
