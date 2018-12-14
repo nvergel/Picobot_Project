@@ -26,16 +26,16 @@ MUT_PER = 0.05
 # Program class:
 
 class Program:
-    """A class that represents a single Picobot program
+    """A class that represents a single Picobot program.
     """
     def __init__(self):
-        """Constructs objects of type Program, setting self.rules to be an empty dictionary
+        """Constructs objects of type Program, setting self.rules to be an empty dictionary.
         """
         self.rules = {}
 
     def __repr__(self):
         """This method returns a string representation of the Picobot program in such a way that it can
-           be pasted straight into the Picobot simulator
+           be pasted straight into the Picobot simulator.
         """
         s = ""
 
@@ -49,7 +49,7 @@ class Program:
 
     def randomize(self):
         """This method generates a random full set of Picobot rules for the program's self.rules dictionary,
-           The set of rules is a combination of each Picobot state with all of the 9 possible surroundings
+           The set of rules is a combination of each Picobot state with all of the 9 possible surroundings.
         """
         for x in range(NUMSTATES):
             for y in PATTERN:
@@ -61,7 +61,7 @@ class Program:
         
     def getMove(self, state, surroundings):
         """This method accepts an integer state and a surrounding (in the form of a list) and returns a tuple containing
-           the next move and the new state
+           the next move and the new state.
         """
         return self.rules[(state, surroundings)]
     
@@ -78,7 +78,7 @@ class Program:
         
     def crossover(self, other):
         """This method accepts an object other of type Program and returns a new "offspring" of type Program containing some of the rules
-           from self and the rest from other
+           from self and the rest from other.
         """
         new = Program()
         num = random.choice(range(NUMSTATES-1))
@@ -90,12 +90,12 @@ class Program:
         return new
 
     def __gt__(self, other):
-        """Redefinition of the greater than operator for the Program class
+        """Redefinition of the greater than operator for the Program class.
         """
         return random.choice([True, False])
 
     def __lt__(self, other):
-        """Redefinition of the less than operator for the Program class
+        """Redefinition of the less than operator for the Program class.
         """
         return random.choice([True, False])
 
@@ -103,10 +103,10 @@ class Program:
 # World class:
         
 class World:
-    """A class that simulates a Picobot environment
+    """A class that simulates a Picobot environment.
     """
     def __init__(self, initial_row, initial_col, program):
-        """Constructs objects of type World
+        """Constructs objects of type World.
         """
         self.prow = initial_row
         self.pcol = initial_col
@@ -130,7 +130,7 @@ class World:
         self.counter = 1
     
     def __repr__(self):
-        """This method returns a string representation of the Picobot world
+        """This method returns a string representation of the Picobot world.
         """
         s = ""
         for row in range(HEIGHT):
@@ -140,7 +140,7 @@ class World:
         return s
     
     def getCurrentSurroundings(self):
-        """This method creates a string representing Picobot's surroundings at a given time
+        """This method creates a string representing Picobot's surroundings at a given time.
         """
         s = ""
         if self.room[self.prow-1][self.pcol] == "-":
@@ -163,7 +163,7 @@ class World:
     
     def step(self):
         """This method moves Picobot one step, updating sel.room and the state, row, and column of Picobot. It does not
-           return anything
+           return anything.
         """
         surr = self.getCurrentSurroundings()
         nextMove = self.prog.getMove(self.state, surr)
@@ -184,14 +184,14 @@ class World:
         self.room[self.prow][self.pcol] = "P"
     
     def run(self, steps):
-        """This method accepts a integer representing the number of steps to move
+        """This method accepts a integer representing the number of steps to move.
         """
         for i in range(steps):
             self.step()
 
     def fractionVisitedCells(self):
         """This method returns the floating-point fraction of cells in self.room that have been visited by Picobot. This is the 
-           basic fitness score for a Picobot program
+           basic fitness score for a Picobot program.
         """
         return self.counter/(HEIGHT-2)/(WIDTH-2)
 
@@ -200,7 +200,7 @@ class World:
 
 def createPrograms(size):
     """createPrograms accepts an integer representing a population size and returns a population of that many
-       Picobot programs
+       Picobot programs.
     """
     L = []
     for i in range(size):
@@ -224,7 +224,7 @@ def evaluateFitness(program, trials, steps):
     return sum(L)/len(L)
 
 def saveToFile(filename, p):
-   """Saves the data from Program p to a file named filename
+   """Saves the data from Program p to a file named filename.
    """
    f = open(filename, "w")
    print(p, file = f)
