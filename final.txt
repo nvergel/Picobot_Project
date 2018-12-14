@@ -6,7 +6,7 @@ How We Created/Tested the Code:
 - To factor in the mutations we added a counter to the while loop so that every time the number of children created was equal to 10% of the original population size a mutation would happen. This would generate 9 mutations since the children account for 90% of every new generation.
 - After some tests we realize that, although this strategy was good, it could be improved by increasing the number of mutations. Therefore, we changed the code so that every time the number of children created was equal to 5% of the original population size a mutation would happen. This generated 18 mutations.
 - Additionally, and just because, we added an if statement so that if both randomly chosen parents were the same a mutation would take place.
-- We tested all this with population sizes of 200 and 400 and got optimal results for both cases (fitness of >96%).
+- We tested all this with population sizes of 200 and 400 for 20 generations and got optimal results for both cases (fitness of >96%). Increasing the number of generations barely increases the best fitness.
 
 
 
