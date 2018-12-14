@@ -9,6 +9,7 @@
 import random
 from functools import reduce
 
+
 # Magic numbers and other useful variables:
 
 HEIGHT = 25
